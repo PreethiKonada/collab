@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Disney Princess Dashboard</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #f8e1f4, #e0f3ff);
+      color: #333;
+    }
+
+    header {
+      background: #6c5ce7;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      margin: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .controls input {
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1rem;
+      padding: 1rem;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .card-content {
+      padding: 1rem;
+    }
+
+    .card-content h2 {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.25rem;
+      color: #6c5ce7;
+    }
+
+    .card-content p {
+      margin: 0.25rem 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Disney Princess Dashboard</h1>
+    <p>Explore various Disney Princesses and their collections</p>
+  </header>
+
+  <div class="controls">
+    <input type="text" id="search" placeholder="Search princess..." />
+  </div>
+
+  <main class="dashboard" id="dashboard"></main>
+
+  <script>
+    const princesses = [
+      {
+        name: "Ariel",
+        movie: "The Little Mermaid",
+        collections: ["Seashells", "Treasures", "Gadgets & Gizmos"],
+        img: "https://i.ibb.co/d4GzBrH/ariel.jpg"
+      },
+      {
+        name: "Belle",
+        movie: "Beauty and the Beast",
+        collections: ["Books", "Roses", "Ball Gowns"],
+        img: "https://i.ibb.co/gj9SRN6/belle.jpg"
+      },
+      {
+        name: "Cinderella",
+        movie: "Cinderella",
+        collections: ["Glass Slippers", "Pumpkin Carriage", "Ball Dresses"],
+        img: "https://i.ibb.co/Wv0vVjR/cinderella.jpg"
+      },
+      {
+        name: "Jasmine",
+        movie: "Aladdin",
+        collections: ["Jewels", "Palace Gardens", "Magic Carpets"],
+        img: "https://i.ibb.co/GdGQJpT/jasmine.jpg"
+      },
+      {
+        name: "Snow White",
+        movie: "Snow White and the Seven Dwarfs",
+        collections: ["Apples", "Songs", "Friendship"],
+        img: "https://i.ibb.co/9HgZV52/snowwhite.jpg"
+      },
+      {
+        name: "Rapunzel",
+        movie: "Tangled",
+        collections: ["Lanterns", "Paintings", "Long Hair Styles"],
+        img: "https://i.ibb.co/RNhmZ19/rapunzel.jpg"
+      },
+      {
+        name: "Mulan",
+        movie: "Mulan",
+        collections: ["Armor", "Swords", "Honor Tokens"],
+        img: "https://i.ibb.co/qR6W9rr/mulan.jpg"
+      },
+      {
+        name: "Tiana",
+        movie: "The Princess and the Frog",
+        collections: ["Recipes", "Restaurants", "Frogs"],
+        img: "https://i.ibb.co/xjttnW2/tiana.jpg"
+      }
+    ];
+
+    const dashboard = document.getElementById("dashboard");
+    const searchInput = document.getElementById("search");
+
+    function renderPrincesses(list) {
+      dashboard.innerHTML = "";
+      list.forEach(p => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <img src="${p.img}" alt="${p.name}">
+          <div class="card-content">
+            <h2>${p.name}</h2>
+            <p><strong>Movie:</strong> ${p.movie}</p>
+            <p><strong>Collections:</strong> ${p.collections.join(", ")}</p>
+          </div>
+        `;
+        dashboard.appendChild(card);
+      });
+    }
+
+    searchInput.addEventListener("input", (e) => {
+      const query = e.target.value.toLowerCase();
+      const filtered = princesses.filter(p => 
+        p.name.toLowerCase().includes(query) || 
+        p.movie.toLowerCase().includes(query) || 
+        p.collections.join(" ").toLowerCase().includes(query)
+      );
+      renderPrincesses(filtered);
+    });
+
+    // Initial render
+    renderPrincesses(princesses);
+  </script>
+</body>
+</html>
