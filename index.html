@@ -2,17 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Disney Princess Dashboard</title>
+  <title>Jewellery Shopping Dashboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       margin: 0;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      font-family: "Segoe UI", sans-serif;
       background: linear-gradient(135deg, #fce4ec, #e3f2fd);
       color: #333;
     }
     header {
-      background: #7e57c2;
+      background: #c2185b;
       color: white;
       padding: 1rem;
       text-align: center;
@@ -47,114 +47,107 @@
       overflow: hidden;
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
       transition: transform 0.2s;
+      display: flex;
+      flex-direction: column;
     }
     .card:hover {
       transform: translateY(-5px);
     }
     .card img {
       width: 100%;
-      height: 200px;
-      object-fit: cover;
+      height: 160px;
+      object-fit: contain;
+      background: #fafafa;
+      padding: 1rem;
     }
     .card-content {
       padding: 1rem;
+      flex-grow: 1;
     }
     .card-content h2 {
-      margin: 0;
+      margin: 0 0 0.5rem 0;
       font-size: 1.3rem;
-      color: #7e57c2;
+      color: #c2185b;
     }
     .card-content p {
-      margin: 0.3rem 0;
+      margin: 0.3rem 0 1rem;
+      font-size: 0.95rem;
+      line-height: 1.4;
     }
-    .images-row {
-      display: flex;
-      gap: 0.5rem;
-      margin-top: 0.5rem;
+    .card button {
+      background: #c2185b;
+      color: white;
+      border: none;
+      padding: 0.6rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s;
     }
-    .images-row img {
-      width: 48%;
-      height: 120px;
-      object-fit: cover;
-      border-radius: 8px;
+    .card button:hover {
+      background: #9c1447;
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>Disney Princess Dashboard</h1>
-    <p>Characters, Jewellery & Costumes</p>
+    <h1>Jewellery Shopping Dashboard</h1>
+    <p>Discover top jewellery shopping websites</p>
   </header>
 
   <div class="controls">
-    <input type="text" id="search" placeholder="Search princess...">
+    <input type="text" id="search" placeholder="Search website...">
   </div>
 
   <main class="dashboard" id="dashboard"></main>
 
   <script>
-    const princesses = [
+    const websites = [
       {
-        name: "Ariel",
-        movie: "The Little Mermaid",
-        img: "https://i.ibb.co/d4GzBrH/ariel.jpg",
-        jewellery: "https://i.ibb.co/5RkQTxz/ariel-jewel.jpg",
-        costume: "https://i.ibb.co/m9XgkZP/ariel-dress.jpg"
+        name: "Tanishq",
+        description: "One of India's most trusted jewellery brands offering gold, diamonds, and platinum.",
+        img: "https://upload.wikimedia.org/wikipedia/commons/1/1e/Tanishq_logo.png",
+        link: "https://www.tanishq.co.in/"
       },
       {
-        name: "Belle",
-        movie: "Beauty and the Beast",
-        img: "https://i.ibb.co/gj9SRN6/belle.jpg",
-        jewellery: "https://i.ibb.co/fd9s2b7/belle-jewel.jpg",
-        costume: "https://i.ibb.co/64LyfjC/belle-dress.jpg"
+        name: "Kalyan Jewellers",
+        description: "A popular jewellery brand with a wide range of traditional and modern designs.",
+        img: "https://upload.wikimedia.org/wikipedia/commons/5/56/Kalyan_Jewellers_logo.png",
+        link: "https://www.kalyanjewellers.net/"
       },
       {
-        name: "Cinderella",
-        movie: "Cinderella",
-        img: "https://i.ibb.co/Wv0vVjR/cinderella.jpg",
-        jewellery: "https://i.ibb.co/vJn9MQT/cinderella-jewel.jpg",
-        costume: "https://i.ibb.co/ZSkh12m/cinderella-dress.jpg"
+        name: "Bluestone",
+        description: "Online jewellery store with unique and customizable designs in gold and diamonds.",
+        img: "https://play-lh.googleusercontent.com/Zf0S5R6vD-YcILgjZPa5mMUTQYwi3E9asOlRrTn4n2YcRkQonq_84X7vY_BDz3HcVg",
+        link: "https://www.bluestone.com/"
       },
       {
-        name: "Jasmine",
-        movie: "Aladdin",
-        img: "https://i.ibb.co/GdGQJpT/jasmine.jpg",
-        jewellery: "https://i.ibb.co/Yf19S8b/jasmine-jewel.jpg",
-        costume: "https://i.ibb.co/8ggN3j6/jasmine-dress.jpg"
+        name: "CaratLane",
+        description: "Modern jewellery store with lightweight designs perfect for everyday wear.",
+        img: "https://upload.wikimedia.org/wikipedia/commons/f/fd/Caratlane_logo.png",
+        link: "https://www.caratlane.com/"
       },
       {
-        name: "Rapunzel",
-        movie: "Tangled",
-        img: "https://i.ibb.co/RNhmZ19/rapunzel.jpg",
-        jewellery: "https://i.ibb.co/VBYG0Mn/rapunzel-jewel.jpg",
-        costume: "https://i.ibb.co/2qLzXHd/rapunzel-dress.jpg"
-      },
-      {
-        name: "Mulan",
-        movie: "Mulan",
-        img: "https://i.ibb.co/qR6W9rr/mulan.jpg",
-        jewellery: "https://i.ibb.co/McSLNdc/mulan-jewel.jpg",
-        costume: "https://i.ibb.co/ynpjhRJ/mulan-dress.jpg"
+        name: "Malabar Gold & Diamonds",
+        description: "Global brand offering gold, diamond, and platinum jewellery collections.",
+        img: "https://upload.wikimedia.org/wikipedia/commons/2/2b/Malabar_Gold_%26_Diamonds_logo.png",
+        link: "https://www.malabargoldanddiamonds.com/"
       }
     ];
 
     const dashboard = document.getElementById("dashboard");
     const searchInput = document.getElementById("search");
 
-    function renderPrincesses(list) {
+    function renderWebsites(list) {
       dashboard.innerHTML = "";
-      list.forEach(p => {
+      list.forEach(site => {
         const card = document.createElement("div");
         card.className = "card";
         card.innerHTML = `
-          <img src="${p.img}" alt="${p.name}">
+          <img src="${site.img}" alt="${site.name}">
           <div class="card-content">
-            <h2>${p.name}</h2>
-            <p><strong>Movie:</strong> ${p.movie}</p>
-            <div class="images-row">
-              <img src="${p.jewellery}" alt="${p.name} Jewellery">
-              <img src="${p.costume}" alt="${p.name} Costume">
-            </div>
+            <h2>${site.name}</h2>
+            <p>${site.description}</p>
+            <button onclick="window.open('${site.link}', '_blank')">Visit Website</button>
           </div>
         `;
         dashboard.appendChild(card);
@@ -163,14 +156,14 @@
 
     searchInput.addEventListener("input", (e) => {
       const query = e.target.value.toLowerCase();
-      const filtered = princesses.filter(p =>
-        p.name.toLowerCase().includes(query) ||
-        p.movie.toLowerCase().includes(query)
+      const filtered = websites.filter(site =>
+        site.name.toLowerCase().includes(query) ||
+        site.description.toLowerCase().includes(query)
       );
-      renderPrincesses(filtered);
+      renderWebsites(filtered);
     });
 
-    renderPrincesses(princesses);
+    renderWebsites(websites);
   </script>
 </body>
 </html>
